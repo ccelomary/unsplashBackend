@@ -10,7 +10,10 @@ export class PostsService {
   ) {}
 
   async getPosts(): Promise<Post[]> {
-    const posts = await this.postsModule.find().sort({ createdAt: -1 });
+    const posts = await this.postsModule
+      .find()
+      .sort({ createdAt: -1 })
+      .populate('user', '-_id -__v -password');
     return posts;
   }
 
