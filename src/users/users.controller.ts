@@ -32,13 +32,13 @@ export class UsersController {
     return this.usersService.getUser(req.user.username);
   }
   @UseGuards(JwtAuthGuard)
-  @Post('/:username/update_picture')
+  @Post('/update_picture')
   updatePicture(
     @Body() data: { imageData: string },
-    @Param('username') username: string,
+    @Request() req
   ): Promise<{ status: number; message: string }> {
     return this.usersService.upadateUserImage({
-      username,
+      username: req.user.username,
       imageData: data.imageData,
     });
   }
