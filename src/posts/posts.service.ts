@@ -22,9 +22,14 @@ export class PostsService {
   }
 
   async filterPosts(query: { search: string }): Promise<Post[]> {
-    const posts = await this.postsModule.find({
-      label: { $regex: query.search, $options: 'i' },
-    });
+    const posts = await this.postsModule
+      .find({
+        label: { $regex: query.search, $options: 'i' },
+      })
+      .populate({
+        path: 'user',
+        select: 'username picture',
+      });
     return posts;
   }
 }
