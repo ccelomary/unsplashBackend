@@ -15,7 +15,8 @@ export class Post {
   url: string;
   @Prop({
     default: null,
-    type: mongoose.Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
   })
   user: User;
   @Prop({

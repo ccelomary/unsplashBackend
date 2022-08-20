@@ -14,9 +14,10 @@ export class PostsService {
       .find()
       .sort({ createdAt: -1 })
       .populate({
-        path:'user',
-        select: 'username - picture'
-      }).exec();
+        path: 'user',
+        select: 'username picture',
+      })
+      .exec();
     return posts;
   }
 
