@@ -13,7 +13,7 @@ export class PostsService {
     const posts = await this.postsModule
       .find()
       .sort({ createdAt: -1 })
-      .populate('user', '-_id -__v -password');
+      .populate('user', '-_id -__v -password').exec();
     return posts;
   }
 
