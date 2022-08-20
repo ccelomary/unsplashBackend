@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument } from './users.schema';
 import * as bcrypt from 'bcrypt';
@@ -32,15 +32,22 @@ export class UsersService {
       user.password,
       parseInt(process.env.SALT_ROUNDS),
     );
-    const newUser = new this.userModel({
-      username: user.username,
-      password: hashedPassword,
-    });
-    await newUser.save();
-    return {
-      status: 201,
-      message: 'User created',
-    };
+    try {
+      const newUser = new this.userModel({
+        username: user.username,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      return {
+        status: 201,
+        message: 'User created',
+      };
+    } catch (err) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        message: 'Username already exists',
+      };
+    }
   }
 
   async upadateUserImage(user: {
