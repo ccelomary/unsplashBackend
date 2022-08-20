@@ -13,7 +13,10 @@ export class PostsService {
     const posts = await this.postsModule
       .find()
       .sort({ createdAt: -1 })
-      .populate('user', '-_id -__v -password').exec();
+      .populate({
+        path:'user',
+        select: 'username - picture'
+      }).exec();
     return posts;
   }
 

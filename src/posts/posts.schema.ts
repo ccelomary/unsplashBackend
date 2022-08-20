@@ -15,8 +15,9 @@ export class Post {
   url: string;
   @Prop({
     default: null,
+    type: mongoose.Schema.Types.ObjectId
   })
-  user: User[];
+  user: User;
   @Prop({
     createdAt: 'createdAt',
   })
