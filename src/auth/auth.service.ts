@@ -21,11 +21,10 @@ export class AuthService {
     const payload = {
       username: user.username,
       id: user.id,
-      picture: user.picture,
     };
     return {
-      username: payload.username,
-      picture: payload.picture,
+      username: user.username,
+      picture: user.picture,
       access_token: this.jwtService.sign(payload),
     };
   }
