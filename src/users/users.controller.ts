@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { Post as PostType } from 'src/posts/posts.schema';
 
 @Controller('users')
 export class UsersController {
@@ -35,7 +36,7 @@ export class UsersController {
   @Post('/update_picture')
   updatePicture(
     @Body() data: { imageData: string },
-    @Request() req
+    @Request() req,
   ): Promise<{ status: number; message: string }> {
     return this.usersService.upadateUserImage({
       username: req.user.username,
@@ -51,7 +52,7 @@ export class UsersController {
       label: string;
       url: string;
     },
-  ): Promise<{ status: number; message: string }> {
+  ): Promise<{ status: number; message: string; post: PostType }> {
     return this.usersService.createPost(post, req.user.username);
   }
   @UseGuards(JwtAuthGuard)
