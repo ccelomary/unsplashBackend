@@ -9,8 +9,6 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { Post as PostType } from 'src/posts/posts.schema';
-
 @Controller('users')
 export class UsersController {
   constructor(readonly usersService: UsersService) {}
@@ -52,7 +50,7 @@ export class UsersController {
       label: string;
       url: string;
     },
-  ): Promise<{ status: number; message: string; post: PostType }> {
+  ): Promise<{ status: number; message: string; post: any }> {
     return this.usersService.createPost(post, req.user.username);
   }
   @UseGuards(JwtAuthGuard)

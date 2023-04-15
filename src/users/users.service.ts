@@ -75,7 +75,7 @@ export class UsersService {
       url: string;
     },
     username: string,
-  ): Promise<{ status: number; message: string; post: Post }> {
+  ): Promise<{ status: number; message: string; post: any }> {
     const newPost = new this.postModel({
       label: post.label,
       url: post.url,
