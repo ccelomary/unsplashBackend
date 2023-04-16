@@ -95,7 +95,13 @@ export class UsersService {
     return {
       status: 201,
       message: 'Post created',
-      post: newPost,
+      post: {
+        ...newPost,
+        user: {
+          username: user.username,
+          picture: user.picture,
+        },
+      },
     };
   }
 
