@@ -111,9 +111,9 @@ export class UsersService {
   async deletePost(username: string, postId: string): Promise<any> {
     const user = await this.userModel.findOne({ username });
     const post = await this.postModel.findById(postId);
-    user.update({ $pull: { posts: post._id } });
+    user.updateOne({ $pull: { posts: post._id } });
     await user.save();
-    await post.remove();
+    await post.deleteOne();
     return {
       status: 201,
       message: 'Post deleted',
