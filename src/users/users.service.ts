@@ -64,10 +64,16 @@ export class UsersService {
     };
   }
 
-  async getUserPosts(username: string): Promise<any> {
-    const user = await this.userModel.findOne({ username });
-    const posts = await user.populate('posts');
-    return posts.posts.reverse();
+  async getUserPosts(userId: string): Promise<any> {
+    const posts = await this.postModel
+      .find({ user: userId })
+      .sort({ createdAt: -1 })
+      .populate({
+        path: 'user',
+        select: 'username picture',
+      })
+      .exec();
+    return posts;
   }
   async createPost(
     post: {
