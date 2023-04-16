@@ -96,7 +96,10 @@ export class UsersService {
       status: 201,
       message: 'Post created',
       post: {
-        ...newPost,
+        _id: newPost._id,
+        createdAt: newPost.createdAt,
+        label: newPost.label,
+        url: newPost.url,
         user: {
           username: user.username,
           picture: user.picture,
