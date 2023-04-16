@@ -22,7 +22,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Get('/posts')
   findAllPosts(@Request() req): Promise<any> {
-    return this.usersService.getUserPosts(req.user._id);
+    return this.usersService.getUserPosts(req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
